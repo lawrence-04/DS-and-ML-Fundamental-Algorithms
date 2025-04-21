@@ -3,5 +3,8 @@ This repository is a collection of fundamental algorithms across data science an
 
 For each algorithm, I use libraries that allow me to demonstrate the core methodology, without having to write large amounts of unrelated code.
 
+Each algorithm comes with an example usecase and basic tests.
+
 ## Algorithms
 * [TF-IDF](./tf_idf/)
+* [K-Means Clustering](./k-means-clustering/)
