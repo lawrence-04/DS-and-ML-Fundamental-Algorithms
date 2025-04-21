@@ -8,3 +8,4 @@ Each algorithm comes with an example usecase and basic tests.
 ## Algorithms
 * [TF-IDF](./tf_idf/)
 * [K-Means Clustering](./k-means-clustering/)
+* [Decision Tree](./decision_tree)
