@@ -1,6 +1,8 @@
 import numpy as np
 import pytest
-from k_means_clustering import KMeansClusterer  # Replace with actual import path
+from sklearn.datasets import make_blobs
+
+from k_means_clustering import KMeansClusterer
 
 # Fix seed for reproducibility
 np.random.seed(42)
@@ -8,9 +10,7 @@ np.random.seed(42)
 
 def test_basic_clustering():
     # Generate simple 2D data with 3 clusters
-    from sklearn.datasets import make_blobs
-
-    X, y_true = make_blobs(n_samples=150, centers=3, cluster_std=0.60, random_state=0)
+    X, _ = make_blobs(n_samples=150, centers=3, cluster_std=0.60, random_state=0)
 
     kmeans = KMeansClusterer(k=3)
     kmeans.fit(X)
