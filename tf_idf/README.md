@@ -7,9 +7,9 @@ See [wiki](https://en.wikipedia.org/wiki/Tf%E2%80%93idf).
 
 ## Theory
 The formula for TF-IDF is as follows:
-$$ tf(t, d) = \frac{f_{t, d}} {\sum_{t^\prime \in d}{f_{t^\prime,d}}} $$
-$$ idf(t, D) = \log \frac{|N|} {|d: d \in D \space and \space t \in d |} $$
-$$ tfidf(t, d, D) = TF(t, d) * IDF(t, D) $$
+$$tf(t, d) = \frac{f_{t, d}} {\sum_{t^\prime \in d}{f_{t^\prime,d}}}$$
+$$idf(t, D) = \log \frac{|N|} {|d: d \in D \space and \space t \in d |}$$
+$$tfidf(t, d, D) = TF(t, d) * IDF(t, D)$$
 
 Where:
 * $D$: collection of documents (corpus)
