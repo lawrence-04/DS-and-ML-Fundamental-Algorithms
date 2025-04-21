@@ -8,6 +8,7 @@ def test_compute_gini_impurity():
     assert clf.compute_gini_impurity(np.array([1, 1, 1, 1])) == 0.0
     assert np.isclose(clf.compute_gini_impurity(np.array([0, 1])), 0.5)
 
+
 def test_predict_perfectly_separable():
     # XOR-style data (but linearly separable)
     X = np.array([[1], [2], [8], [9]])
@@ -18,6 +19,7 @@ def test_predict_perfectly_separable():
     preds = clf.predict(X)
 
     assert np.array_equal(preds, y)
+
 
 def test_not_enough_samples_for_split():
     X = np.array([[1], [2]])
@@ -31,6 +33,7 @@ def test_not_enough_samples_for_split():
     assert all(pred in [0, 1] for pred in preds)
     assert len(set(preds)) == 1  # both predictions should be the same
 
+
 def test_predict_single_point():
     X = np.array([[1], [2], [3], [10]])
     y = np.array([0, 0, 0, 1])
@@ -41,13 +44,19 @@ def test_predict_single_point():
     pred = clf.predict(np.array([[10]]))
     assert pred[0] == 1
 
+
 def test_model_accuracy_on_easy_data():
     from sklearn.datasets import make_classification
     from sklearn.metrics import accuracy_score
 
-    X, y = make_classification(n_samples=100, n_features=2, 
-                               n_informative=2, n_redundant=0,
-                               n_clusters_per_class=1, random_state=42)
+    X, y = make_classification(
+        n_samples=100,
+        n_features=2,
+        n_informative=2,
+        n_redundant=0,
+        n_clusters_per_class=1,
+        random_state=42,
+    )
 
     clf = DecisionTreeBinaryClassifier(max_depth=3)
     clf.fit(X, y)

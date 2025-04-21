@@ -1,6 +1,7 @@
 from __future__ import annotations
 import numpy as np
 
+
 class DecisionTreeBinaryClassifier:
     def __init__(self, max_depth: int = 2, min_samples_per_split: int = 1):
         self.max_depth = max_depth
@@ -66,9 +67,9 @@ class DecisionTreeBinaryClassifier:
 
         if best_split_value is None:
             print(X)
-        assert (
-            best_split_value is not None
-        ), f"Not enough data for splitting with {self.min_samples_per_split=}"
+        assert best_split_value is not None, (
+            f"Not enough data for splitting with {self.min_samples_per_split=}"
+        )
 
         return best_split_feature_index, best_split_value, lowest_impurity
 
