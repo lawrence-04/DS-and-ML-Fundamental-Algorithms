@@ -6,6 +6,7 @@ For each algorithm, I use libraries that allow me to demonstrate the core method
 Each algorithm comes with an example usecase and basic tests.
 
 ## Algorithms
+* [PCA](./pca/)
 * [TF-IDF](./tf_idf/)
 * [K-Means Clustering](./k-means-clustering/)
 * [Decision Tree](./decision_tree)
