@@ -9,11 +9,12 @@ def step_fn():
     steps = [
         (np.array([0.1, 0.0, 0.02, 0.0]), 1.0, False, False, {}),
         (np.array([0.2, 0.0, 0.04, 0.0]), 1.0, False, False, {}),
-        (np.array([0.3, 0.0, 0.06, 0.0]), 1.0, True,  False, {}),
+        (np.array([0.3, 0.0, 0.06, 0.0]), 1.0, True, False, {}),
     ]
     while True:
         for step in steps:
             yield step
+
 
 @pytest.fixture
 def mock_env():
@@ -25,12 +26,14 @@ def mock_env():
 
     return env
 
+
 def test_initialization(mock_env):
     agent = QLearning(mock_env)
     assert agent.q_table.shape == (agent.n_discrete_states, agent.n_actions)
     assert agent.epsilon == 1.0
     assert isinstance(agent.bins, list)
     assert len(agent.bins) == 4
+
 
 def test_discretize_state(mock_env):
     agent = QLearning(mock_env)
@@ -39,12 +42,14 @@ def test_discretize_state(mock_env):
     assert isinstance(discrete_state, int)
     assert 0 <= discrete_state < agent.n_discrete_states
 
+
 def test_select_action_exploration(mock_env):
     agent = QLearning(mock_env)
     agent.epsilon = 1.0  # Force exploration
     state = agent.discretize_state(np.array([0.0, 0.0, 0.0, 0.0]))
     action = agent.select_action(state)
     assert action in [0, 1]
+
 
 def test_select_action_exploitation(mock_env):
     agent = QLearning(mock_env)
@@ -54,6 +59,7 @@ def test_select_action_exploitation(mock_env):
     agent.q_table[state, 1] = 1.0
     action = agent.select_action(state)
     assert action == 1
+
 
 def test_update_q_table(mock_env):
     agent = QLearning(mock_env)
@@ -67,6 +73,7 @@ def test_update_q_table(mock_env):
     new_value = agent.q_table[state, action]
     assert new_value != old_value
 
+
 def test_decay_epsilon(mock_env):
     agent = QLearning(mock_env, epsilon=1.0, epsilon_decay=0.5, epsilon_min=0.1)
     agent.decay_epsilon()
@@ -79,6 +86,7 @@ def test_decay_epsilon(mock_env):
     agent.decay_epsilon()
     agent.decay_epsilon()
     assert agent.epsilon >= 0.1  # Should not drop below epsilon_min
+
 
 def test_train_returns_results(mock_env):
     agent = QLearning(mock_env)
