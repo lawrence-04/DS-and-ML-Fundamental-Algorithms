@@ -11,3 +11,4 @@ Each algorithm comes with an example usecase and basic tests.
 * [K-Means Clustering](./k-means-clustering/)
 * [Decision Tree](./decision_tree)
 * [SVM](./svm/)
+* [Q-Learning](./q_learning/)
