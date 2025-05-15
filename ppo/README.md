@@ -48,7 +48,9 @@ We use an actor-critic paradigm. The actor is the policy model, that dictates th
 
 The value model therefore has the following loss function:
 
-$$L^{\text{value}} = \frac{1}{N} \sum_{t} (V(s_t) - R_t)^2$$
+$$L^{\text{value}} = \frac{1}{N} \sum_{t} (V(s_t) - R_t - \gamma \cdot V(s_{t+1}))^2$$
+
+Where $V$ is our critic model and $R_t$ is the reward at time $t$.
 
 ### Algorithm
 1. Run the current policy on the environment to collect actions, states, rewards, policy outputs and value estimate for each step over several episodes.
