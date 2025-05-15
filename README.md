@@ -8,8 +8,8 @@ Each algorithm comes with an example usecase and basic tests.
 ## Algorithms
 ### Feature Engineering
 * [PCA](./pca/)
-### Statistical Modelling
 * [TF-IDF](./tf_idf/)
+### Statistical Modelling
 * [K-Means Clustering](./k-means-clustering/)
 * [Decision Tree](./decision_tree)
 * [SVM](./svm/)
