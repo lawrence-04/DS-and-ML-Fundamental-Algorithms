@@ -16,4 +16,5 @@ Each algorithm comes with an example usecase and basic tests.
 ### Reinforcement Learning
 * [Q-Learning](./q_learning/)
 * [PPO](./ppo/)
-
+### Feature Importance
+* [Shapley Values](./shapley/)

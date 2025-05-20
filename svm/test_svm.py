@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+
 from svm import SVMPrimal  # Update this to match the actual file/module name
 
 
