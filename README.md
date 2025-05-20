@@ -6,9 +6,14 @@ For each algorithm, I use libraries that allow me to demonstrate the core method
 Each algorithm comes with an example usecase and basic tests.
 
 ## Algorithms
+### Feature Engineering
 * [PCA](./pca/)
 * [TF-IDF](./tf_idf/)
+### Statistical Modelling
 * [K-Means Clustering](./k-means-clustering/)
 * [Decision Tree](./decision_tree)
 * [SVM](./svm/)
+### Reinforcement Learning
 * [Q-Learning](./q_learning/)
+* [PPO](./ppo/)
+
