@@ -18,3 +18,5 @@ Each algorithm comes with an example usecase and basic tests.
 * [PPO](./ppo/)
 ### Feature Importance
 * [Shapley Values](./shapley/)
+### Optimiser
+* [TP Estimator](./tp_estimator/)
