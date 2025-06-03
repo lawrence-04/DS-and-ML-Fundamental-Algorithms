@@ -15,6 +15,7 @@ Each algorithm comes with an example usecase and basic tests.
 * [SVM](./svm/)
 ### Deep Learning
 * [Multilayer Perceptron](/.mlp)
+* [Transformer](./transformer/)
 ### Reinforcement Learning
 * [Q-Learning](./q_learning/)
 * [PPO](./ppo/)
