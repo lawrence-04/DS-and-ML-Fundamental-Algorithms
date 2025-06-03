@@ -10,7 +10,7 @@ $$Q(S_t, A_t) = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots |_{(S_t, A_
 
 The update formula is given as follows:
 
-$$Q^{new}(S_t, A_t) \larr Q(S_t, A_t) + \alpha \cdot (R_{t+1} + \gamma \cdot \max_a Q(S_{t+1}, a) - Q(S_t, A_t))$$
+$$Q^{new}(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \cdot (R_{t+1} + \gamma \cdot \max_a Q(S_{t+1}, a) - Q(S_t, A_t))$$
 
 Where:
 * $t$: time step
