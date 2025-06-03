@@ -3,12 +3,18 @@ import numpy as np
 
 class PCA:
     def __init__(self, n_components: int) -> None:
-        self.n_components = n_components
-        self.components = None
-        self.mean = None
-        self.std = None
+        """
+        Initialize PCA with the number of components to keep.
 
-    def _normalise_features(self, X: np.ndarray, eps=1e-8) -> np.ndarray:
+        Args:
+            n_components: Number of principal components to retain.
+        """
+        self.n_components: int = n_components
+        self.components: np.ndarray | None = None
+        self.mean: np.ndarray | None = None
+        self.std: np.ndarray | None = None
+
+    def _normalise_features(self, X: np.ndarray, eps: float = 1e-8) -> np.ndarray:
         X_normalised = (X - self.mean) / (self.std + eps)
         return X_normalised
 
@@ -33,12 +39,19 @@ class PCA:
         self.components = eigenvectors[:, : self.n_components]
 
     def transform(self, X: np.ndarray) -> np.ndarray:
-        # project data onto principal components
         X_normalised = self._normalise_features(X)
         X_transformed = np.dot(X_normalised, self.components)
         return X_transformed
 
     def fit_transform(self, X: np.ndarray) -> np.ndarray:
+        """
+        Fit the PCA model and transform the data.
+
+        Args:
+            X: Input data, shape (n_samples, n_features).
+
+        Returns:
+            Transformed data, shape (n_samples, n_components).
+        """
         self.fit(X)
-        X_transformed = self.transform(X)
-        return X_transformed
+        return self.transform(X)

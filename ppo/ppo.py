@@ -18,6 +18,16 @@ class PPODataset(Dataset):
         terminated_tensor,
         advantages_tensor,
     ):
+        """
+        Initializes a dataset for PPO training.
+
+        Args:
+            states_tensor (Tensor): Tensor of observed states.
+            actions_tensor (Tensor): Tensor of actions taken.
+            rewards_tensor (Tensor): Tensor of received rewards.
+            terminated_tensor (Tensor): Tensor indicating episode termination.
+            advantages_tensor (Tensor): Tensor of calculated advantages.
+        """
         self.states_tensor = states_tensor
         self.actions_tensor = actions_tensor
         self.rewards_tensor = rewards_tensor
@@ -40,6 +50,13 @@ class PPODataset(Dataset):
 
 class PPOData:
     def __init__(self, gamma: float = 0.99, batch_size: int = 64):
+        """
+        Initializes a container for collecting and processing PPO data.
+
+        Args:
+            gamma (float): Discount factor for future rewards.
+            batch_size (int): Batch size for training.
+        """
         self.gamma = gamma
         self.batch_size = batch_size
         self.clear()
@@ -144,6 +161,20 @@ class PPO:
         num_epochs: int = 10,
         num_training_cycles: int = 100,  # Increased for more complex environment
     ):
+        """
+        Initializes the PPO training loop.
+
+        Args:
+            env (gym.Env): Environment to interact with.
+            actor (nn.Module): Actor network producing action probabilities.
+            critic (nn.Module): Critic network estimating state values.
+            max_training_samples (int): Number of environment steps per training cycle.
+            gamma (float): Discount factor for reward calculation.
+            epsilon (float): Clipping factor for PPO objective.
+            batch_size (int): Batch size used in training.
+            num_epochs (int): Number of epochs per training cycle.
+            num_training_cycles (int): Total number of training cycles.
+        """
         self.env = env
         self.actor = actor
         self.prev_actor = copy.deepcopy(actor)

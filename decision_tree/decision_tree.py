@@ -4,15 +4,22 @@ import numpy as np
 
 
 class DecisionTreeBinaryClassifier:
-    def __init__(self, max_depth: int = 2, min_samples_per_split: int = 1):
+    def __init__(self, max_depth: int = 2, min_samples_per_split: int = 1) -> None:
+        """
+        Binary decision tree classifier using Gini impurity.
+
+        Args:
+            max_depth: maximum depth of the tree
+            min_samples_per_split: minimum samples required to consider a split
+        """
         self.max_depth = max_depth
         self.min_samples_per_split = min_samples_per_split
 
-        self.left_node = None
-        self.right_node = None
-        self.feature_index = None
-        self.feature_value = None
-        self.label = None
+        self.left_node: DecisionTreeBinaryClassifier | None = None
+        self.right_node: DecisionTreeBinaryClassifier | None = None
+        self.feature_index: int | None = None
+        self.feature_value: float | None = None
+        self.label: int | None = None
 
     @staticmethod
     def compute_gini_impurity(y: np.ndarray) -> float:
@@ -21,7 +28,6 @@ class DecisionTreeBinaryClassifier:
         n_zeros = n_total - n_ones
 
         gini_impurity = 1 - ((n_ones / n_total) ** 2 + (n_zeros / n_total) ** 2)
-
         return gini_impurity
 
     def _compute_split_impurity(self, y_left: np.ndarray, y_right: np.ndarray) -> float:
@@ -34,7 +40,9 @@ class DecisionTreeBinaryClassifier:
         ) * gini_impurity_right
         return split_score
 
-    def _find_best_split(self, X: np.ndarray, y: np.ndarray) -> float:
+    def _find_best_split(
+        self, X: np.ndarray, y: np.ndarray
+    ) -> tuple[int, float, float]:
         lowest_impurity = np.inf
         best_split_value = None
         best_split_feature_index = None
@@ -66,8 +74,6 @@ class DecisionTreeBinaryClassifier:
                     best_split_value = threshold
                     best_split_feature_index = feature_index
 
-        if best_split_value is None:
-            print(X)
         assert best_split_value is not None, (
             f"Not enough data for splitting with {self.min_samples_per_split=}"
         )
@@ -92,9 +98,7 @@ class DecisionTreeBinaryClassifier:
             self.label = int(average_label > 0.5)
             return
 
-        best_split_feature_index, best_split_value, lowest_impurity = (
-            self._find_best_split(X=X, y=y)
-        )
+        best_split_feature_index, best_split_value, _ = self._find_best_split(X=X, y=y)
 
         self.feature_index = best_split_feature_index
         self.feature_value = best_split_value
@@ -116,7 +120,14 @@ class DecisionTreeBinaryClassifier:
         self.left_node._build_tree(X=X_left, y=y_left, depth=depth + 1)
         self.right_node._build_tree(X=X_right, y=y_right, depth=depth + 1)
 
-    def fit(self, X: np.ndarray, y: np.ndarray):
+    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
+        """
+        Fit the decision tree classifier to the data.
+
+        Args:
+            X: feature matrix
+            y: target labels
+        """
         self._build_tree(X=X, y=y)
 
     def _predict_single(self, x: np.ndarray) -> int:
@@ -129,5 +140,14 @@ class DecisionTreeBinaryClassifier:
         return self.right_node._predict_single(x)
 
     def predict(self, X: np.ndarray) -> np.ndarray:
+        """
+        Predict labels for multiple samples.
+
+        Args:
+            X: feature matrix
+
+        Returns:
+            Array of predicted labels
+        """
         preds = np.array([self._predict_single(x) for x in X])
         return preds

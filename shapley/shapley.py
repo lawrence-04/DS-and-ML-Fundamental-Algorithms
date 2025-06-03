@@ -7,6 +7,14 @@ import numpy as np
 
 class Shapley:
     def __init__(self, model_predictor: Callable, X_train: np.ndarray):
+        """
+        Initialize Shapley value calculator.
+
+        Args:
+            model_predictor: Callable model prediction function that takes
+                             input array (1 x n_features) and returns prediction (1 x n_outputs).
+            X_train: Training data used to compute feature means (n_samples x n_features).
+        """
         self.model_predictor = model_predictor
         self.X_train = X_train
 

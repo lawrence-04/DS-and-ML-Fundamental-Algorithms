@@ -10,7 +10,17 @@ class TSPGeneticAlgorithm:
         num_generations: int = 500,
         mutation_rate: float = 0.01,
         mutation_falloff: float = 0.9,
-    ):
+    ) -> None:
+        """
+        Genetic algorithm solver for the Traveling Salesman Problem.
+
+        Args:
+            node_coords: coordinates of nodes (cities)
+            population_size: number of candidate solutions in population
+            num_generations: number of generations to evolve
+            mutation_rate: initial mutation probability per node swap
+            mutation_falloff: rate to decrease mutation rate each generation
+        """
         self.node_coords = node_coords
         self.num_nodes = node_coords.shape[0]
         self.population_size = population_size
@@ -21,10 +31,10 @@ class TSPGeneticAlgorithm:
         self.half_population_size = int(self.population_size / 2)
         self.population = self.build_initial_population()
 
-        self.best_fitnesses = None
+        self.best_fitnesses: list[float] | None = None
 
     @staticmethod
-    def compute_distance(node1, node2) -> float:
+    def compute_distance(node1: np.ndarray, node2: np.ndarray) -> float:
         return np.linalg.norm(node1 - node2)
 
     def compute_route_length(self, route: np.ndarray) -> float:
@@ -56,7 +66,7 @@ class TSPGeneticAlgorithm:
 
     def sample_pair_for_crossover(
         self, population: np.ndarray, fitnesses: np.ndarray
-    ) -> tuple[np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
         "Sample pairs weighted by fitness"
         idx = np.random.choice(
             len(population), size=2, replace=False, p=fitnesses / np.sum(fitnesses)
@@ -90,9 +100,14 @@ class TSPGeneticAlgorithm:
     def update_mutation_rate(self) -> None:
         self.mutation_rate *= self.mutation_falloff
 
-    def optimise(self) -> tuple[np.ndarray, float]:
-        "Evolve by mutating the top half and making children"
+    def optimise(self) -> tuple[float, np.ndarray | None]:
+        """
+        Run the genetic algorithm optimization process.
 
+        Returns:
+            best fitness value found,
+            best route (sequence of node indices)
+        """
         best_fitness = -np.inf
         best_route = None
         best_fitnesses = []

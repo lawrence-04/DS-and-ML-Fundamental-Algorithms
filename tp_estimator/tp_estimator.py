@@ -15,6 +15,18 @@ class TPEstimator:
         num_iter: int = 50,
         good_threshold: float = 0.2,
     ):
+        """
+        Initialize the Tree-structured Parzen Estimator (TPE) for hyperparameter optimization.
+
+        Args:
+            hyperparameter_ranges: List of [low, high] bounds for each hyperparameter.
+            objective_function: Callable that takes a hyperparameter vector and returns a scalar objective value.
+            num_init_samples: Number of initial random samples to draw.
+            num_candidate_samples: Number of candidates to sample per iteration.
+            num_iter: Number of optimization iterations.
+            good_threshold: Fraction of samples considered "good" to form the good distribution.
+        """
+
         if int(num_init_samples * good_threshold) < len(hyperparameter_ranges):
             raise ValueError(
                 "Number of samples in the 'good' distribution must be greater than the number of hyperparameters to comply with scipy.stats.gaussian_kde."
@@ -84,6 +96,12 @@ class TPEstimator:
         return best_candidate
 
     def optimise(self) -> np.ndarray:
+        """
+        Run the TPE optimization process.
+
+        Returns:
+            The best hyperparameter vector found.
+        """
         for _ in tqdm(range(self.num_iter)):
             good_dist, bad_dist = self._build_distributions()
             new_candidate = self._sample_new_candidate(
