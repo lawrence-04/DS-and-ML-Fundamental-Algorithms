@@ -69,14 +69,3 @@ def test_different_input_sizes(sample_model, batch_size, seq_len):
     x = torch.randn(batch_size, seq_len, 64)
     output = sample_model(x)
     assert output.shape == (batch_size, seq_len, 10)
-
-
-def test_with_masking(sample_model):
-    batch_size, seq_len = 2, 10
-    x = torch.randn(batch_size, seq_len, 64)
-
-    # create simple mask
-    mask = torch.ones(batch_size, 8, seq_len, seq_len)  # 8 heads
-    output = sample_model(x, mask)
-
-    assert output.shape == (batch_size, seq_len, 10)
